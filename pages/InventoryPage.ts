@@ -80,4 +80,15 @@ export class InventoryPage extends BasePage {
     const texts = await this.itemPrices.allTextContents();
     return texts.map((t) => Number(t.replace('$', '')));
   }
+
+  private inventoryItemCard(productName: string) {
+    return this.page.locator('.inventory_item').filter({ hasText: productName });
+  }
+
+  async getProductPrice(productName: string): Promise<number> {
+    const priceText = await this.inventoryItemCard(productName)
+      .locator('.inventory_item_price')
+      .textContent();
+    return Number((priceText ?? '').replace('$', ''));
+  }
 }
