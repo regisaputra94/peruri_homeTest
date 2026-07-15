@@ -84,25 +84,6 @@ npm run report        # Open HTML report
 
 ---
 
-## Test Coverage
-
-### UI Tests
-
-* Login / Logout
-* Add / Remove Cart Items
-* Product Sorting
-* Checkout Flow
-
-### API Tests
-
-* Users
-* Authentication
-* Products
-* Carts
-* Schema validation
-
----
-
 ## Notes
 
 * Smoke tests cover critical business flows and can be tagged using `@smoke`.
