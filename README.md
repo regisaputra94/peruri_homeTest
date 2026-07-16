@@ -1,90 +1,108 @@
-# Sauce Demo QA Automation — Senior QA Engineer Take-Home
+# QA Automation Take-Home — Senior QA Engineer
 
-Automation framework for testing [saucedemo.com](https://www.saucedemo.com) including UI, API, and exploratory testing, built with Playwright + TypeScript using a maintainable Page Object Model structure.
+Automation framework for three QA take-home tasks:
 
----
+- **Web UI** — Playwright + TypeScript + Page Object Model
+- **Mobile UI** — WebdriverIO + Appium + Page Object Model
+- **API** — Playwright API + Zod schema validation
 
 ## Tech Stack
 
-* Playwright (UI + API automation)
-* TypeScript
-* Zod (API schema validation)
-* GitHub Actions (CI)
-
----
+- Playwright
+- TypeScript
+- WebdriverIO
+- Appium
+- Zod
+- GitHub Actions
 
 ## Project Structure
 
-```
+```text
 .
-├── pages/          # Page Object Model (UI abstraction layer)
-├── fixtures/       # Test data & reusable authentication setup
-├── schemas/        # API response validation (Zod schemas)
+├── pages/                  # Web Page Objects
+├── fixtures/
+├── schemas/                # API schemas
+├── utils/
 ├── tests/
-│   ├── ui/         # UI automation tests (login, cart, checkout)
-│   └── api/        # API automation tests
+│   ├── ui/
+│   └── api/
+├── mobile/                 # Separate WebdriverIO project
+│   ├── pageobjects/
+│   ├── test/specs/
+│   └── wdio.conf.ts
 ├── playwright.config.ts
 └── .github/workflows/
 ```
 
 ---
 
-## Key Design Approach
+# Web UI & API
 
-### 1. Page Object Model
+## Prerequisites
 
-All UI selectors and page actions are centralized in page classes to improve maintainability and reduce duplication.
+- Node.js 18+
 
-### 2. API + UI in One Framework
-
-Both UI and API tests run under a single Playwright setup for simplicity in CI and consistent test execution.
-
-### 3. Risk-Based Testing Focus
-
-Test coverage prioritizes critical business flows:
-
-* Authentication
-* Cart management
-* Checkout flow
-* Core API contracts
-
-### 4. Stable Test Design
-
-* No hard waits (`waitForTimeout` avoided)
-* Uses Playwright auto-waiting and assertions
-* Independent, isolated test cases
-
----
-
-## Setup
-
-### Prerequisites
-
-* Node.js 18+
-* npm
-
-### Installation
+## Installation
 
 ```bash
 npm install
 npx playwright install chromium
 ```
 
----
-
-## Running Tests
+## Run Tests
 
 ```bash
-npm test              # Run all tests (UI + API)
-npm run test:ui       # UI tests only
-npm run test:api      # API tests only
-npm run test:headed   # UI tests in visible browser
-npm run report        # Open HTML report
+npm test
+npm run test:ui
+npm run test:api
+npm run test:ui:headed
+npm run report
+```
+
+---
+
+# Mobile UI
+
+The mobile automation is located under the **mobile/** folder because it uses WebdriverIO and Appium independently from Playwright.
+
+## Prerequisites
+
+- Node.js 18+
+- Java JDK 11+
+- Android SDK
+- Android Emulator
+- Appium UiAutomator2 Driver
+
+## Installation
+
+```bash
+cd mobile
+npm install
+npx appium driver install uiautomator2
+```
+
+Start an Android emulator before running tests.
+
+Verify the device:
+
+```bash
+adb devices
+```
+
+## Run Tests
+
+```bash
+npm test
+npm run test:search
+npm run test:scroll
 ```
 
 ---
 
 ## Notes
 
-* Smoke tests cover critical business flows and can be tagged using `@smoke`.
-* Framework is designed to be scalable and easy to extend for future regression suites.
+- Web UI uses Page Object Model.
+- API tests perform complete CRUD with runtime-generated authentication and booking IDs.
+- Mobile tests automate the Android Settings application.
+- No hardcoded waits (`waitForTimeout`) are used.
+- Designed to be scalable and easy to maintain.git
