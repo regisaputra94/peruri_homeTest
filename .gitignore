@@ -2,7 +2,7 @@ node_modules/
 test-results/
 playwright-report/
 blob-report/
-mobile/reports/
+reports/
 playwright/.cache/
 .env
 .env.local
